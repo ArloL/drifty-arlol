@@ -235,13 +235,6 @@ repositories {
   (defaultRepo) { name = "python-nc"; description = "A test to see if I can implement nc's proxy functionality with python" }
   (defaultRepo) { name = "sci-fi-movies"; description = "an app to import sci fi movies from rotten tomatoes into a database in order to run queries on them" }
   (defaultRepo) {
-    name = "terraform-github"
-    description = "A project to manage github settings with terraform"
-    environments {
-      ["production"] = new Environment { secrets { "TF_GITHUB_TOKEN" } }
-    }
-  }
-  (defaultRepo) {
     name = "tsaf-parser"
     description = "Binary format exploration"
     branchProtections { ["main"] = testCiBranchProtection }
@@ -295,6 +288,7 @@ repositories {
     "spring-cloud-context-classloader-leak-demo",
     "spring-configuration-processor-metadata-bug-demo",
     "spring-security-drupal-password-encoder",
+    "terraform-github",
     "testcontainers-colima-github-actions",
     "toado",
     "vagrant-1",
