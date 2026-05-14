@@ -86,6 +86,7 @@ local defaultRepo: Repository = new {
   defaultWorkflowPermissions = "read"
   branchProtections { ["main"] = mainBranchProtection }
   rulesets { ["main-branch-rules"] = baseRuleset }
+  immutableReleases = true
 }
 
 local pagesSiteTemplate: Repository = (defaultRepo) {
@@ -171,7 +172,6 @@ repositories {
   (mainCiRepoTemplate) {
     name = "newlinechecker"
     description = "A sample project to play with GraalVM builds on GitHub Actions"
-    immutableReleases = true
   }
   (mainCiRepoTemplate) {
     name = "pkl-config-java-native"
