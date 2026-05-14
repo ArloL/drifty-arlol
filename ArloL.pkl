@@ -219,6 +219,10 @@ repositories {
     actionsSecrets { "DOCKER_HUB_ACCESS_TOKEN"; "DOCKER_HUB_USERNAME" }
   }
   (defaultRepo) {
+    name = "cve-playground"
+    description = "A playground to see how go works when calling APIs. Specifically NVD."
+  }
+  (defaultRepo) {
     name = "dependabot-dockerfile-test"
     description = "A test to see whether dependabot updates dockerfiles with args"
   }
