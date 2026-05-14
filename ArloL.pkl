@@ -76,7 +76,7 @@ local prCheckBranchProtection: BranchProtection = (mainBranchProtection) {
 
 // ── Repo templates ────────────────────────────────────────────────────────
 
-local defaultRepo: Repository = new {
+local noRulesRepo: Repository = new {
   owner = "ArloL"
   automatedSecurityFixes = true
   allowMergeCommit = false
@@ -84,9 +84,12 @@ local defaultRepo: Repository = new {
   allowAutoMerge = true
   deleteBranchOnMerge = true
   defaultWorkflowPermissions = "read"
+  immutableReleases = true
+}
+
+local defaultRepo: Repository = (noRulesRepo) {
   branchProtections { ["main"] = mainBranchProtection }
   rulesets { ["main-branch-rules"] = baseRuleset }
-  immutableReleases = true
 }
 
 local pagesSiteTemplate: Repository = (defaultRepo) {
@@ -288,6 +291,11 @@ repositories {
   (defaultRepo) {
     name = "vagrant-ssh-config"
     description = "A vagrant plugin that automatically creates ssh configs for vms"
+  }
+
+  (noRulesRepo) {
+    name = "nvd-cves"
+    description = "All CVEs from the NVD"
   }
 
   // Archived repos
