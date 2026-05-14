@@ -191,7 +191,8 @@ repositories {
   }
   (mainCiRepoTemplate) {
     name = "webapp-classloader-test"
-    description = "This is a test that can be used during integration testing to check for classloader leaks"
+    description =
+      "This is a test that can be used during integration testing to check for classloader leaks"
   }
   (mainCiRepoTemplate) {
     name = "website-janitor"
@@ -202,7 +203,8 @@ repositories {
   (defaultRepo) { name = "advent-of-code"; description = "My advent of code solutions" }
   (defaultRepo) {
     name = "calver-tag-action"
-    description = "A GitHub Actions action that creates a new version using a CalVer-style derivative and pushes it"
+    description =
+      "A GitHub Actions action that creates a new version using a CalVer-style derivative and pushes it"
     immutableReleases = true
   }
   (defaultRepo) {
@@ -216,86 +218,131 @@ repositories {
     description = "A container for executing python in corporate environments"
     actionsSecrets { "DOCKER_HUB_ACCESS_TOKEN"; "DOCKER_HUB_USERNAME" }
   }
-  (defaultRepo) { name = "dependabot-dockerfile-test"; description = "A test to see whether dependabot updates dockerfiles with args" }
-  (defaultRepo) { name = "dotfiles"; description = "My collection of dotfiles used to configure my command line environments" }
-  (defaultRepo) { name = "effortful-retrieval-questions"; description = "A collection of effortful retrieval questions of a number of articles I've read" }
-  (defaultRepo) { name = "git-presentation-2018-10"; description = "Git Präsentation für Vorlesung Industrielle Softwareentwicklung" }
-  (defaultRepo) { name = "homebrew-tap"; description = "A homebrew tap for my own formulas and casks" }
-  (defaultRepo) { name = "kafka-debugger"; description = "A small jar utility to test kafka connections" }
-  (defaultRepo) { name = "menubar-scripts"; description = "A collection of scripts that can run in e.g. xbar, swiftbar, etc." }
+  (defaultRepo) {
+    name = "dependabot-dockerfile-test"
+    description = "A test to see whether dependabot updates dockerfiles with args"
+  }
+  (defaultRepo) {
+    name = "dotfiles"
+    description = "My collection of dotfiles used to configure my command line environments"
+  }
+  (defaultRepo) {
+    name = "effortful-retrieval-questions"
+    description = "A collection of effortful retrieval questions of a number of articles I've read"
+  }
+  (defaultRepo) {
+    name = "git-presentation-2018-10"
+    description = "Git Präsentation für Vorlesung Industrielle Softwareentwicklung"
+  }
+  (defaultRepo) {
+    name = "homebrew-tap"
+    description = "A homebrew tap for my own formulas and casks"
+  }
+  (defaultRepo) {
+    name = "kafka-debugger"
+    description = "A small jar utility to test kafka connections"
+  }
+  (defaultRepo) {
+    name = "menubar-scripts"
+    description = "A collection of scripts that can run in e.g. xbar, swiftbar, etc."
+  }
   (defaultRepo) {
     name = "music-stuff"
     description = "Some spotify and beatunes stuff"
     branchProtections { ["main"] = testCiBranchProtection }
     rulesets { ["main-branch-rules"] = testCiRuleset }
   }
-  (defaultRepo) { name = "nope-amine"; description = "A firefox extension that slowly increases the time for things to load on reddit.com" }
-  (defaultRepo) { name = "open-webui-runner"; description = "A small repo to run open-webui locally and stop it after using it" }
-  (defaultRepo) { name = "postgres-sync-demo"; description = "A demo on how to use triggers, queues, etc. to sync the app's data somewhere else" }
-  (defaultRepo) { name = "python-nc"; description = "A test to see if I can implement nc's proxy functionality with python" }
-  (defaultRepo) { name = "sci-fi-movies"; description = "an app to import sci fi movies from rotten tomatoes into a database in order to run queries on them" }
+  (defaultRepo) {
+    name = "nope-amine"
+    description =
+      "A firefox extension that slowly increases the time for things to load on reddit.com"
+  }
+  (defaultRepo) {
+    name = "open-webui-runner"
+    description = "A small repo to run open-webui locally and stop it after using it"
+  }
+  (defaultRepo) {
+    name = "postgres-sync-demo"
+    description =
+      "A demo on how to use triggers, queues, etc. to sync the app's data somewhere else"
+  }
+  (defaultRepo) {
+    name = "python-nc"
+    description = "A test to see if I can implement nc's proxy functionality with python"
+  }
+  (defaultRepo) {
+    name = "sci-fi-movies"
+    description =
+      "an app to import sci fi movies from rotten tomatoes into a database in order to run queries on them"
+  }
   (defaultRepo) {
     name = "tsaf-parser"
     description = "Binary format exploration"
     branchProtections { ["main"] = testCiBranchProtection }
     rulesets { ["main-branch-rules"] = testCiRuleset }
   }
-  (defaultRepo) { name = "vagrant-ssh-config"; description = "A vagrant plugin that automatically creates ssh configs for vms" }
+  (defaultRepo) {
+    name = "vagrant-ssh-config"
+    description = "A vagrant plugin that automatically creates ssh configs for vms"
+  }
 
   // Archived repos
-  for (repoName in List(
-    "actions",
-    "actions-checkout-fetch-depth-demo",
-    "airmac",
-    "beatunes-keytocomment",
-    "campuswoche-2018-webseiten-steuern",
-    "chop-kata",
-    "dotnet-http-client-reproduction",
-    "gitfx",
-    "graalfx",
-    "gwt-dragula-test",
-    "gwt-log-print-style-demo",
-    "gwt-refresh-demo",
-    "HalloJSX",
-    "HelloCocoaHTTPServer",
-    "HelloIntAirActServer",
-    "HelloRoutingServer",
-    "HelloServer",
-    "iebox",
-    "ilabwebworkshop",
-    "IntAirAct",
-    "IntAirAct-Performance",
-    "jBrowserDriver",
-    "jbrowserdriver-cucumber-integration-tests",
-    "jbrowserdriver-test",
-    "jdk-newinstance-leak-demo",
-    "jdk8u144-classloader-leak-demo-webapp",
-    "jhipster-app",
-    "json-smart-dependency-resolution-test",
-    "m2e-wro4j-bug-demo",
-    "m2e-wro4j-bug-demo2",
-    "maven-quickstart-j2objc",
-    "Mirror",
-    "modern-ie-vagrant",
-    "MWPhotoBrowser",
-    "npmrc-github-action",
-    "packer-templates",
-    "pico-playground",
-    "postgres-query-error-demo",
-    "quickstart-buck-bazel-maven",
-    "selenium-xp-ie6",
-    "self-hosted-gh-actions-runner",
-    "spring-cloud-context-classloader-leak-demo",
-    "spring-configuration-processor-metadata-bug-demo",
-    "spring-security-drupal-password-encoder",
-    "terraform-github",
-    "testcontainers-colima-github-actions",
-    "toado",
-    "vagrant-1",
-    "vitest-link-reproduction",
-    "vitest-mocking-reproduction",
-    "workflow-dispatch-input-defaults"
-  )) {
+  for (
+    repoName in
+      List(
+        "actions",
+        "actions-checkout-fetch-depth-demo",
+        "airmac",
+        "beatunes-keytocomment",
+        "campuswoche-2018-webseiten-steuern",
+        "chop-kata",
+        "dotnet-http-client-reproduction",
+        "gitfx",
+        "graalfx",
+        "gwt-dragula-test",
+        "gwt-log-print-style-demo",
+        "gwt-refresh-demo",
+        "HalloJSX",
+        "HelloCocoaHTTPServer",
+        "HelloIntAirActServer",
+        "HelloRoutingServer",
+        "HelloServer",
+        "iebox",
+        "ilabwebworkshop",
+        "IntAirAct",
+        "IntAirAct-Performance",
+        "jBrowserDriver",
+        "jbrowserdriver-cucumber-integration-tests",
+        "jbrowserdriver-test",
+        "jdk-newinstance-leak-demo",
+        "jdk8u144-classloader-leak-demo-webapp",
+        "jhipster-app",
+        "json-smart-dependency-resolution-test",
+        "m2e-wro4j-bug-demo",
+        "m2e-wro4j-bug-demo2",
+        "maven-quickstart-j2objc",
+        "Mirror",
+        "modern-ie-vagrant",
+        "MWPhotoBrowser",
+        "npmrc-github-action",
+        "packer-templates",
+        "pico-playground",
+        "postgres-query-error-demo",
+        "quickstart-buck-bazel-maven",
+        "selenium-xp-ie6",
+        "self-hosted-gh-actions-runner",
+        "spring-cloud-context-classloader-leak-demo",
+        "spring-configuration-processor-metadata-bug-demo",
+        "spring-security-drupal-password-encoder",
+        "terraform-github",
+        "testcontainers-colima-github-actions",
+        "toado",
+        "vagrant-1",
+        "vitest-link-reproduction",
+        "vitest-mocking-reproduction",
+        "workflow-dispatch-input-defaults",
+      )
+  ) {
     (archivedRepo) { name = repoName }
   }
 }
