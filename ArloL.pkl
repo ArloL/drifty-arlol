@@ -149,6 +149,10 @@ repositories {
     actionsSecrets { "PAT" }
   }
   (mainCiRepoTemplate) {
+    name = "cve-playground"
+    description = "A playground to see how go works when calling APIs. Specifically NVD."
+  }
+  (mainCiRepoTemplate) {
     name = "drifty"
     description = "Detect and fix drift of GitHub repository settings"
   }
@@ -217,10 +221,6 @@ repositories {
     name = "corporate-python"
     description = "A container for executing python in corporate environments"
     actionsSecrets { "DOCKER_HUB_ACCESS_TOKEN"; "DOCKER_HUB_USERNAME" }
-  }
-  (defaultRepo) {
-    name = "cve-playground"
-    description = "A playground to see how go works when calling APIs. Specifically NVD."
   }
   (defaultRepo) {
     name = "dependabot-dockerfile-test"
