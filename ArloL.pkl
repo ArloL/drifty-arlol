@@ -296,6 +296,7 @@ repositories {
   (noRulesRepo) {
     name = "nvd-cves"
     description = "All CVEs from the NVD"
+    actionsSecrets { "NVD_API_KEY" }
   }
 
   // Archived repos
