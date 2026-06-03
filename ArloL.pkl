@@ -276,6 +276,8 @@ repositories {
   (defaultRepo) {
     name = "python-nc"
     description = "A test to see if I can implement nc's proxy functionality with python"
+    branchProtections { ["main"] = testCiBranchProtection }
+    rulesets { ["main-branch-rules"] = testCiRuleset }
   }
   (defaultRepo) {
     name = "sci-fi-movies"
