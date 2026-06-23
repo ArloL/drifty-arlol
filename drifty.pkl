@@ -23,6 +23,10 @@ local testCiCheck = new StatusCheck {
   context = "test.required-status-check"
   appId = module.githubActionsAppId
 }
+local testsCiCheck = new StatusCheck {
+  context = "tests.required-status-check"
+  appId = module.githubActionsAppId
+}
 local prCheck = new StatusCheck {
   context = "pr-check.required-status-check"
   appId = module.githubActionsAppId
@@ -50,6 +54,10 @@ local testCiRuleset: Ruleset = (baseRuleset) {
   requiredStatusChecks { testCiCheck }
 }
 
+local testsCiRuleset: Ruleset = (baseRuleset) {
+  requiredStatusChecks { testsCiCheck }
+}
+
 local prCheckRuleset: Ruleset = (baseRuleset) {
   requiredStatusChecks { prCheck }
 }
@@ -68,6 +76,10 @@ local mainCiBranchProtection: BranchProtection = (mainBranchProtection) {
 
 local testCiBranchProtection: BranchProtection = (mainBranchProtection) {
   requiredStatusChecks { testCiCheck }
+}
+
+local testsCiBranchProtection: BranchProtection = (mainBranchProtection) {
+  requiredStatusChecks { testsCiCheck }
 }
 
 local prCheckBranchProtection: BranchProtection = (mainBranchProtection) {
@@ -244,6 +256,8 @@ repositories {
   (defaultRepo) {
     name = "homebrew-tap"
     description = "A homebrew tap for my own formulas and casks"
+    branchProtections { ["main"] = testsCiBranchProtection }
+    rulesets { ["main-branch-rules"] = testsCiRuleset }
   }
   (defaultRepo) {
     name = "kafka-debugger"
