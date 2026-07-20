@@ -15,6 +15,10 @@ local codeqlCheck = new StatusCheck {
   context = "CodeQL"
   appId = module.githubAdvancedSecurityAppId
 }
+local ciCheck = new StatusCheck {
+  context = "ci.required-status-check"
+  appId = module.githubActionsAppId
+}
 local mainCiCheck = new StatusCheck {
   context = "main.required-status-check"
   appId = module.githubActionsAppId
@@ -46,6 +50,10 @@ local baseRuleset: Ruleset = new {
 }
 
 // Each variant amends baseRuleset, appending one more required status check.
+local ciRuleset: Ruleset = (baseRuleset) {
+  requiredStatusChecks { ciCheck }
+}
+
 local mainCiRuleset: Ruleset = (baseRuleset) {
   requiredStatusChecks { mainCiCheck }
 }
@@ -68,6 +76,10 @@ local mainBranchProtection: BranchProtection = new {
   enforceAdmins = true
   requiredLinearHistory = true
   requiredStatusChecks { checkActions; codeqlAnalysis; codeqlCheck }
+}
+
+local ciBranchProtection: BranchProtection = (mainBranchProtection) {
+  requiredStatusChecks { ciCheck }
 }
 
 local mainCiBranchProtection: BranchProtection = (mainBranchProtection) {
@@ -231,6 +243,12 @@ repositories {
     description = "Setup scripts for Claude Code on the web"
     branchProtections { ["main"] = prCheckBranchProtection }
     rulesets { ["main-branch-rules"] = prCheckRuleset }
+  }
+  (defaultRepo) {
+    name = "configurable-containers"
+    description = "One config to route every site to the right container"
+    branchProtections { ["main"] = ciBranchProtection }
+    rulesets { ["main-branch-rules"] = ciRuleset }
   }
   (defaultRepo) {
     name = "corporate-python"
