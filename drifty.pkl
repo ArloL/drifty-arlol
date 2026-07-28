@@ -249,6 +249,7 @@ repositories {
     description = "One config to route every site to the right container"
     branchProtections { ["main"] = ciBranchProtection }
     rulesets { ["main-branch-rules"] = ciRuleset }
+    actionsSecrets { "WEB_EXT_API_KEY"; "WEB_EXT_API_SECRET" }
   }
   (defaultRepo) {
     name = "corporate-python"
