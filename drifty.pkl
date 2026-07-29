@@ -247,6 +247,7 @@ repositories {
   (defaultRepo) {
     name = "configurable-containers"
     description = "One config to route every site to the right container"
+    pages = new {}
     branchProtections { ["main"] = ciBranchProtection }
     rulesets { ["main-branch-rules"] = ciRuleset }
     actionsSecrets { "WEB_EXT_API_KEY"; "WEB_EXT_API_SECRET" }
