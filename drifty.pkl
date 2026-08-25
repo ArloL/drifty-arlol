@@ -250,7 +250,6 @@ repositories {
     pages = new {}
     branchProtections { ["main"] = ciBranchProtection }
     rulesets { ["main-branch-rules"] = ciRuleset }
-    actionsSecrets { "WEB_EXT_API_KEY"; "WEB_EXT_API_SECRET" }
     environments {
       // Only release.yaml and ci.yml's prerelease job talk to AMO, and both run
       // on main only, so the credentials never need to be reachable elsewhere.
