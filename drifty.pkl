@@ -39,6 +39,11 @@ local sonarcloudCheck = new StatusCheck {
   context = "sonarcloud.required-status-check"
   appId = module.githubActionsAppId
 }
+local sonarcloudAnalysisCheck = new StatusCheck {
+  context = "SonarCloud Code Analysis"
+  // Reported by the SonarQubeCloud app, so the module's app ids don't apply.
+  appId = 12526
+}
 
 // ── Shared rulesets ───────────────────────────────────────────────────────
 
@@ -59,7 +64,7 @@ local ciRuleset: Ruleset = (baseRuleset) {
 }
 
 local ciSonarcloudRuleset: Ruleset = (ciRuleset) {
-  requiredStatusChecks { sonarcloudCheck }
+  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
 }
 
 local mainCiRuleset: Ruleset = (baseRuleset) {
@@ -91,7 +96,7 @@ local ciBranchProtection: BranchProtection = (mainBranchProtection) {
 }
 
 local ciSonarcloudBranchProtection: BranchProtection = (ciBranchProtection) {
-  requiredStatusChecks { sonarcloudCheck }
+  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
 }
 
 local mainCiBranchProtection: BranchProtection = (mainBranchProtection) {
