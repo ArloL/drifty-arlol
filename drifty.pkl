@@ -71,6 +71,10 @@ local mainCiRuleset: Ruleset = (baseRuleset) {
   requiredStatusChecks { mainCiCheck }
 }
 
+local mainCiSonarcloudRuleset: Ruleset = (mainCiRuleset) {
+  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+}
+
 local testCiRuleset: Ruleset = (baseRuleset) {
   requiredStatusChecks { testCiCheck }
 }
@@ -101,6 +105,10 @@ local ciSonarcloudBranchProtection: BranchProtection = (ciBranchProtection) {
 
 local mainCiBranchProtection: BranchProtection = (mainBranchProtection) {
   requiredStatusChecks { mainCiCheck }
+}
+
+local mainCiSonarcloudBranchProtection: BranchProtection = (mainCiBranchProtection) {
+  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
 }
 
 local testCiBranchProtection: BranchProtection = (mainBranchProtection) {
@@ -200,6 +208,8 @@ repositories {
   (mainCiRepoTemplate) {
     name = "drifty"
     description = "Detect and fix drift of GitHub repository settings"
+    branchProtections { ["main"] = mainCiSonarcloudBranchProtection }
+    rulesets { ["main-branch-rules"] = mainCiSonarcloudRuleset }
     environments {
       ["sonarcloud"] = new {
         secrets { "SONAR_TOKEN" }
