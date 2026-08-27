@@ -35,6 +35,10 @@ local prCheck = new StatusCheck {
   context = "pr-check.required-status-check"
   appId = module.githubActionsAppId
 }
+local sonarcloudCheck = new StatusCheck {
+  context = "sonarcloud.required-status-check"
+  appId = module.githubActionsAppId
+}
 
 // ── Shared rulesets ───────────────────────────────────────────────────────
 
@@ -52,6 +56,10 @@ local baseRuleset: Ruleset = new {
 // Each variant amends baseRuleset, appending one more required status check.
 local ciRuleset: Ruleset = (baseRuleset) {
   requiredStatusChecks { ciCheck }
+}
+
+local ciSonarcloudRuleset: Ruleset = (ciRuleset) {
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local mainCiRuleset: Ruleset = (baseRuleset) {
@@ -80,6 +88,10 @@ local mainBranchProtection: BranchProtection = new {
 
 local ciBranchProtection: BranchProtection = (mainBranchProtection) {
   requiredStatusChecks { ciCheck }
+}
+
+local ciSonarcloudBranchProtection: BranchProtection = (ciBranchProtection) {
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local mainCiBranchProtection: BranchProtection = (mainBranchProtection) {
@@ -248,14 +260,19 @@ repositories {
     name = "configurable-containers"
     description = "One config to route every site to the right container"
     pages = new {}
-    branchProtections { ["main"] = ciBranchProtection }
-    rulesets { ["main-branch-rules"] = ciRuleset }
+    branchProtections { ["main"] = ciSonarcloudBranchProtection }
+    rulesets { ["main-branch-rules"] = ciSonarcloudRuleset }
     environments {
       // Only release.yaml and ci.yml's prerelease job talk to AMO, and both run
       // on main only, so the credentials never need to be reachable elsewhere.
       ["mozilla"] = new {
         secrets { "WEB_EXT_API_KEY"; "WEB_EXT_API_SECRET" }
         protectedBranches = true
+      }
+      // Sonar analyses run on pull request branches too, so this one stays
+      // unrestricted.
+      ["sonarcloud"] = new {
+        secrets { "SONAR_TOKEN" }
       }
     }
   }
