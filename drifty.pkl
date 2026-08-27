@@ -200,6 +200,11 @@ repositories {
   (mainCiRepoTemplate) {
     name = "drifty"
     description = "Detect and fix drift of GitHub repository settings"
+    environments {
+      ["sonarcloud"] = new {
+        secrets { "SONAR_TOKEN" }
+      }
+    }
   }
   (mainCiRepoTemplate) {
     name = "git-dora-lead-time-calculator"
