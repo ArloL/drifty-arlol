@@ -67,6 +67,10 @@ local ciSonarcloudRuleset: Ruleset = (ciRuleset) {
   requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
 }
 
+local sonarcloudRuleset: Ruleset = (baseRuleset) {
+  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+}
+
 local mainCiRuleset: Ruleset = (baseRuleset) {
   requiredStatusChecks { mainCiCheck }
 }
@@ -100,6 +104,10 @@ local ciBranchProtection: BranchProtection = (mainBranchProtection) {
 }
 
 local ciSonarcloudBranchProtection: BranchProtection = (ciBranchProtection) {
+  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+}
+
+local sonarcloudBranchProtection: BranchProtection = (mainBranchProtection) {
   requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
 }
 
@@ -159,6 +167,18 @@ local mainCiRepoTemplate: Repository = (defaultRepo) {
   rulesets { ["main-branch-rules"] = mainCiRuleset }
 }
 
+local mainCiSonarcloudRepoTemplate: Repository = (mainCiRepoTemplate) {
+  branchProtections { ["main"] = mainCiSonarcloudBranchProtection }
+  rulesets { ["main-branch-rules"] = mainCiSonarcloudRuleset }
+  environments { ["sonarcloud"] = sonarcloudEnvironment }
+}
+
+local sonarcloudRepoTemplate: Repository = (defaultRepo) {
+  branchProtections { ["main"] = sonarcloudBranchProtection }
+  rulesets { ["main-branch-rules"] = sonarcloudRuleset }
+  environments { ["sonarcloud"] = sonarcloudEnvironment }
+}
+
 local archivedRepo: Repository = new { owner = "ArloL"; archived = true }
 
 // ── Repositories ──────────────────────────────────────────────────────────
@@ -204,85 +224,69 @@ repositories {
   }
 
   // Main CI repos
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "chorito"
     description = "A tool that does some chores in your source code"
     actionsSecrets { "PAT" }
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
   (mainCiRepoTemplate) {
     name = "cve-playground"
     description = "A playground to see how go works when calling APIs. Specifically NVD."
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "drifty"
     description = "Detect and fix drift of GitHub repository settings"
-    branchProtections { ["main"] = mainCiSonarcloudBranchProtection }
-    rulesets { ["main-branch-rules"] = mainCiSonarcloudRuleset }
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "git-dora-lead-time-calculator"
     description = "A project to calculate the DORA metric lead time with the info from a git repo"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "mvnx"
     description = "An experiment with Maven dependencies and dynamic classloading"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "myprojects-cleaner"
     description = "A java application that runs git clean in a bunch of directories"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "newlinechecker"
     description = "A sample project to play with GraalVM builds on GitHub Actions"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "pkl-config-java-native"
     description = "A superset of pkl-config-java that works in native binaries"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "rss-to-mail"
     description = "Read from RSS feeds and send an email for every new item"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "template-graal"
     description = "A template for graal projects"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "template-maven"
     description = "A template for maven projects"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "wait-for-ports"
     description = "A command-line utility that waits until a port is open"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "webapp-classloader-test"
     description =
       "This is a test that can be used during integration testing to check for classloader leaks"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
-  (mainCiRepoTemplate) {
+  (mainCiSonarcloudRepoTemplate) {
     name = "website-janitor"
     description = "A set of tools that check websites for common misconfigurations or downtime"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
 
   // Individual repos
-  (defaultRepo) {
+  (sonarcloudRepoTemplate) {
     name = "advent-of-code"
     description = "My advent of code solutions"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
   (defaultRepo) {
     name = "calver-tag-action"
@@ -339,10 +343,9 @@ repositories {
     branchProtections { ["main"] = testsCiBranchProtection }
     rulesets { ["main-branch-rules"] = testsCiRuleset }
   }
-  (defaultRepo) {
+  (sonarcloudRepoTemplate) {
     name = "kafka-debugger"
     description = "A small jar utility to test kafka connections"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
   (defaultRepo) {
     name = "menubar-scripts"
@@ -363,11 +366,10 @@ repositories {
     name = "open-webui-runner"
     description = "A small repo to run open-webui locally and stop it after using it"
   }
-  (defaultRepo) {
+  (sonarcloudRepoTemplate) {
     name = "postgres-sync-demo"
     description =
       "A demo on how to use triggers, queues, etc. to sync the app's data somewhere else"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
   (defaultRepo) {
     name = "python-nc"
@@ -375,11 +377,10 @@ repositories {
     branchProtections { ["main"] = testCiBranchProtection }
     rulesets { ["main-branch-rules"] = testCiRuleset }
   }
-  (defaultRepo) {
+  (sonarcloudRepoTemplate) {
     name = "sci-fi-movies"
     description =
       "an app to import sci fi movies from rotten tomatoes into a database in order to run queries on them"
-    environments { ["sonarcloud"] = sonarcloudEnvironment }
   }
   (defaultRepo) {
     name = "tsaf-parser"
