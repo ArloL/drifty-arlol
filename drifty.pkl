@@ -35,14 +35,13 @@ local prCheck = new StatusCheck {
   context = "pr-check.required-status-check"
   appId = module.githubActionsAppId
 }
+// The SonarQubeCloud app's own "SonarCloud Code Analysis" check is not
+// required: it never reports on the dependency bump pull requests the workflow
+// skips, and would block those merges forever. The workflow waits for the
+// quality gate instead, so the check below fails on a gate failure.
 local sonarcloudCheck = new StatusCheck {
   context = "sonarcloud.required-status-check"
   appId = module.githubActionsAppId
-}
-local sonarcloudAnalysisCheck = new StatusCheck {
-  context = "SonarCloud Code Analysis"
-  // Reported by the SonarQubeCloud app, so the module's app ids don't apply.
-  appId = 12526
 }
 
 // ── Shared rulesets ───────────────────────────────────────────────────────
@@ -64,11 +63,11 @@ local ciRuleset: Ruleset = (baseRuleset) {
 }
 
 local ciSonarcloudRuleset: Ruleset = (ciRuleset) {
-  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local sonarcloudRuleset: Ruleset = (baseRuleset) {
-  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local mainCiRuleset: Ruleset = (baseRuleset) {
@@ -76,7 +75,7 @@ local mainCiRuleset: Ruleset = (baseRuleset) {
 }
 
 local mainCiSonarcloudRuleset: Ruleset = (mainCiRuleset) {
-  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local testCiRuleset: Ruleset = (baseRuleset) {
@@ -104,11 +103,11 @@ local ciBranchProtection: BranchProtection = (mainBranchProtection) {
 }
 
 local ciSonarcloudBranchProtection: BranchProtection = (ciBranchProtection) {
-  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local sonarcloudBranchProtection: BranchProtection = (mainBranchProtection) {
-  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local mainCiBranchProtection: BranchProtection = (mainBranchProtection) {
@@ -116,7 +115,7 @@ local mainCiBranchProtection: BranchProtection = (mainBranchProtection) {
 }
 
 local mainCiSonarcloudBranchProtection: BranchProtection = (mainCiBranchProtection) {
-  requiredStatusChecks { sonarcloudCheck; sonarcloudAnalysisCheck }
+  requiredStatusChecks { sonarcloudCheck }
 }
 
 local testCiBranchProtection: BranchProtection = (mainBranchProtection) {
