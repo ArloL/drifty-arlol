@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches:
+    - main
+    types:
+    - reopened
+  # drifty.pkl amends the upstream schema from its main branch, so it can break
+  # without a commit here
+  schedule:
+  - cron: "23 9 4 * *"
+permissions: {}
+
+jobs:
+  pkl:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      PKL_VERSION: "0.32.1"
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
+    - name: Install pkl
+      run: |
+        curl --fail --silent --show-error --location --output pkl \
+          "https://github.com/apple/pkl/releases/download/${PKL_VERSION}/pkl-linux-amd64"
+        chmod +x pkl
+    - name: Check formatting
+      run: ./pkl format --diff-name-only drifty.pkl
+    - name: Evaluate drifty.pkl
+      run: ./pkl eval --output-path /dev/null drifty.pkl
+  required-status-check:
+    name: ci.required-status-check
+    needs:
+    - pkl
+    # GitHub Actions skips this job when any of the dependents fail. And skips
+    # are considered success in their weird logic. So we always run it and fail
+    # ourselves if necessary
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+    - run: echo "Use this job as the required status check of this workflow"
+    - name: Check that all jobs were successful
+      env:
+        RESULTS: ${{ toJSON(needs) }}
+      run: |
+        echo "$RESULTS" | jq --exit-status 'all(.result == "success")' || exit 1
