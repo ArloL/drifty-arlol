@@ -329,6 +329,10 @@ repositories {
     description = "My collection of dotfiles used to configure my command line environments"
   }
   (defaultRepo) {
+    name = "drifty-arlol"
+    description = "The drifty configuration for my GitHub repositories"
+  }
+  (defaultRepo) {
     name = "effortful-retrieval-questions"
     description = "A collection of effortful retrieval questions of a number of articles I've read"
   }
@@ -392,10 +396,6 @@ repositories {
     description = "A vagrant plugin that automatically creates ssh configs for vms"
   }
 
-  (noRulesRepo) {
-    name = "drifty-arlol"
-    description = "The drifty configuration for my GitHub repositories"
-  }
   (noRulesRepo) {
     name = "nvd-cves"
     description = "All CVEs from the NVD"
