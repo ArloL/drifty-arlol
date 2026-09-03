@@ -40,3 +40,21 @@ request never merges.
 
 Require a status check only once its workflow is merged and green on main, for
 the same reason.
+
+## Editing pkl in VS Code
+
+`.vscode/settings.json` formats `.pkl` files on save, which does nothing until
+the Pkl extension is installed. VS Code will not prompt for it either:
+`.vscode/extensions.json` can only recommend extensions from the marketplace,
+and this one ships as a `.vsix` on [its releases page][pkl-vscode].
+
+Download the `.vsix`, then:
+
+```
+code --install-extension ~/Downloads/pkl-vscode-<version>.vsix
+```
+
+The language server needs Java 22+ on `PATH` or in `JAVA_HOME`. Point
+`pkl.lsp.java.path` at a specific executable when neither has one new enough.
+
+[pkl-vscode]: https://github.com/apple/pkl-vscode/releases/latest
