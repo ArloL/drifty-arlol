@@ -331,6 +331,8 @@ repositories {
   (defaultRepo) {
     name = "drifty-arlol"
     description = "The drifty configuration for my GitHub repositories"
+    branchProtections { ["main"] = ciBranchProtection }
+    rulesets { ["main-branch-rules"] = ciRuleset }
   }
   (defaultRepo) {
     name = "effortful-retrieval-questions"
