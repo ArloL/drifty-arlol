@@ -3,6 +3,20 @@
     "addLabels": [
         "{{manager}}",
     ],
+    "customManagers": [
+        {
+            // Version pins that no built-in manager sees, annotated with a
+            // "# renovate: datasource=... depName=..." comment on the line
+            // above.
+            "customType": "regex",
+            "managerFilePatterns": [
+                ".github/workflows/*.yaml",
+            ],
+            "matchStrings": [
+                "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+\\w+: \"(?<currentValue>[^\"]+)\"",
+            ],
+        },
+    ],
     "extends": [
         "config:recommended",
     ],

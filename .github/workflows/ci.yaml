@@ -19,6 +19,7 @@ jobs:
     permissions:
       contents: read
     env:
+      # renovate: datasource=github-releases depName=apple/pkl
       PKL_VERSION: "0.32.1"
     steps:
     - name: Checkout repository
