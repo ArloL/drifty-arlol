@@ -8,12 +8,16 @@
             // Version pins that no built-in manager sees, annotated with a
             // "# renovate: datasource=... depName=..." comment on the line
             // above.
+            //
+            // The quotes around the value are optional because chorito
+            // normalises yaml scalars and strips them, so requiring them
+            // silently stopped this manager from matching.
             "customType": "regex",
             "managerFilePatterns": [
                 ".github/workflows/*.yaml",
             ],
             "matchStrings": [
-                "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+\\w+: \"(?<currentValue>[^\"]+)\"",
+                "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+\\w+: [\"']?(?<currentValue>[^\"'\\s]+)[\"']?",
             ],
         },
     ],
