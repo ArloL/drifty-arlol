@@ -351,6 +351,9 @@ users {
         branchProtections { ["main"] = testsCiBranchProtection }
         rulesets { ["main-branch-rules"] = testsCiRuleset }
       }
+      (defaultRepo) {
+        name = "jib-reproduce-and-fix-blob-unknown"
+      }
       (sonarcloudRepoTemplate) {
         name = "kafka-debugger"
         description = "A small jar utility to test kafka connections"
@@ -378,6 +381,9 @@ users {
         name = "postgres-sync-demo"
         description =
           "A demo on how to use triggers, queues, etc. to sync the app's data somewhere else"
+      }
+      (defaultRepo) {
+        name = "pr-rename-review"
       }
       (defaultRepo) {
         name = "python-nc"
