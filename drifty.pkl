@@ -363,6 +363,11 @@ users {
         description = "A collection of scripts that can run in e.g. xbar, swiftbar, etc."
       }
       (defaultRepo) {
+        name = "merge-bot-prs"
+        description =
+          "Auto-merge dependabot and renovate PRs across my repos, after verifying they are really the bot's work"
+      }
+      (defaultRepo) {
         name = "music-stuff"
         description = "Some spotify and beatunes stuff"
         branchProtections { ["main"] = testCiBranchProtection }
