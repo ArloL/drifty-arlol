@@ -417,6 +417,16 @@ users {
         description = "All CVEs from the NVD"
         actionsSecrets { "NVD_API_KEY" }
       }
+      (noRulesRepo) {
+        name = "stuff"
+        visibility = "private"
+        // Unavailable on free private repos: https://github.com/ArloL/drifty/issues/202
+        hasWiki = false
+        allowAutoMerge = false
+        secretScanning = false
+        secretScanningPushProtection = false
+        managed { groups { "code_scanning_default_setup" } }
+      }
 
       // Archived repos
       for (
