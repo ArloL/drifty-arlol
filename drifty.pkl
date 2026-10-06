@@ -390,12 +390,6 @@ users {
       (defaultRepo) {
         name = "pr-rename-review"
       }
-      (defaultRepo) {
-        name = "python-nc"
-        description = "A test to see if I can implement nc's proxy functionality with python"
-        branchProtections { ["main"] = testCiBranchProtection }
-        rulesets { ["main-branch-rules"] = testCiRuleset }
-      }
       (sonarcloudRepoTemplate) {
         name = "sci-fi-movies"
         description =
@@ -466,6 +460,7 @@ users {
             "packer-templates",
             "pico-playground",
             "postgres-query-error-demo",
+            "python-nc",
             "quickstart-buck-bazel-maven",
             "selenium-xp-ie6",
             "self-hosted-gh-actions-runner",
