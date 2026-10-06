@@ -407,10 +407,6 @@ users {
         branchProtections { ["main"] = testCiBranchProtection }
         rulesets { ["main-branch-rules"] = testCiRuleset }
       }
-      (defaultRepo) {
-        name = "vagrant-ssh-config"
-        description = "A vagrant plugin that automatically creates ssh configs for vms"
-      }
 
       (noRulesRepo) {
         name = "nvd-cves"
@@ -480,6 +476,7 @@ users {
             "testcontainers-colima-github-actions",
             "toado",
             "vagrant-1",
+            "vagrant-ssh-config",
             "vitest-link-reproduction",
             "vitest-mocking-reproduction",
             "workflow-dispatch-input-defaults",
