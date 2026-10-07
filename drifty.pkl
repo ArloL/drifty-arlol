@@ -228,6 +228,7 @@ users {
         name = "breezy"
         description =
           "A whiteboard for work thoughts: sticky-note cards and lanes on an infinite canvas"
+        homepageUrl = "https://arlol.github.io/breezy/"
         pages = new {}
       }
       (mainCiSonarcloudRepoTemplate) {
