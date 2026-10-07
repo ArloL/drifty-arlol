@@ -290,6 +290,11 @@ users {
         description = "My advent of code solutions"
       }
       (defaultRepo) {
+        name = "breezy"
+        description =
+          "A whiteboard for work thoughts: sticky-note cards and lanes on an infinite canvas"
+      }
+      (defaultRepo) {
         name = "calver-tag-action"
         description =
           "A GitHub Actions action that creates a new version using a CalVer-style derivative and pushes it"
