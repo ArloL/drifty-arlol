@@ -224,6 +224,11 @@ users {
       }
 
       // Main CI repos
+      (mainCiRepoTemplate) {
+        name = "breezy"
+        description =
+          "A whiteboard for work thoughts: sticky-note cards and lanes on an infinite canvas"
+      }
       (mainCiSonarcloudRepoTemplate) {
         name = "chorito"
         description = "A tool that does some chores in your source code"
@@ -288,11 +293,6 @@ users {
       (sonarcloudRepoTemplate) {
         name = "advent-of-code"
         description = "My advent of code solutions"
-      }
-      (defaultRepo) {
-        name = "breezy"
-        description =
-          "A whiteboard for work thoughts: sticky-note cards and lanes on an infinite canvas"
       }
       (defaultRepo) {
         name = "calver-tag-action"
