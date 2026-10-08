@@ -230,6 +230,17 @@ users {
           "A whiteboard for work thoughts: sticky-note cards and lanes on an infinite canvas"
         homepageUrl = "https://arlol.github.io/breezy/"
         pages = new {}
+        environments {
+          ["production"] = new {
+            secrets {
+              "BREEZY_WEB_USER"
+              "BREEZY_WEB_PASSWORD"
+              "BREEZY_DATABASE_USER"
+              "BREEZY_DATABASE_PASSWORD"
+            }
+            protectedBranches = true
+          }
+        }
       }
       (mainCiSonarcloudRepoTemplate) {
         name = "chorito"
