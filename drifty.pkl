@@ -239,6 +239,10 @@ users {
             }
             protectedBranches = true
           }
+          ["update-signing"] = new {
+            secrets { "SPARKLE_PRIVATE_KEY" }
+            protectedBranches = true
+          }
         }
       }
       (mainCiSonarcloudRepoTemplate) {
