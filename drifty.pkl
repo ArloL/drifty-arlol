@@ -236,6 +236,8 @@ users {
               "BREEZY_WEB_PASSWORD"
               "BREEZY_DATABASE_USER"
               "BREEZY_DATABASE_PASSWORD"
+              "CLOUDFLARE_API_TOKEN"
+              "CLOUDFLARE_ACCOUNT_ID"
             }
             protectedBranches = true
           }
