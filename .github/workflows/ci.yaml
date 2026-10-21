@@ -2,11 +2,12 @@ name: CI
 
 on:
   push:
+    branches:
+    - main
   pull_request:
     branches:
     - main
-    types:
-    - reopened
+  workflow_dispatch:
   # drifty.pkl amends the upstream schema from its main branch, so it can break
   # without a commit here
   schedule:
